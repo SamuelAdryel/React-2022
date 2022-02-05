@@ -5,7 +5,7 @@
 }
 .register--container{
   padding: 10px 20px;
-  border: 3px solid black;
+  border: 3px solid rgb(248, 248, 248);
   border-radius: 5px;
   margin-top: 20px;
 }
@@ -16,9 +16,11 @@ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubun
 }
 .register--input{
   display:block;
+  border: 3px solid rgb(248, 248, 248);
   padding: 10px auto;
   margin: 10px auto;
 }
 .register--button{
+  border: 3px solid rgb(248, 248, 248);
   padding: 2px 5px;
 }

@@ -1,5 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import "./App.css";
+import Axios from "axios";
+import Card from "./components/cards/Card";
 
 function App() {
   const [values, setValues] = useState();
@@ -12,8 +14,23 @@ function App() {
   };
 
   const handleClickButton= () => {
-    console.log(values);
+    Axios.post('http://localhost:3001/register',{
+      name: values.name,
+      cost: values.cost,
+      category: values.category,
+    }).then((response) => {
+      alert(response);
+      console.log('response');
+    });
   }
+
+  useEffect(() => {
+    Axios.get("http://localhost:3001/getCards").then((response) => {
+      console.log(response);
+    });
+  }, []);
+
+
   return (
     <div className="app--container">
       <div className="register--container">
@@ -23,7 +40,7 @@ function App() {
           className="register--input"
           name="name"
           placeholder="Digite o nome do peixe..."
-          onChange={handleChangeValues}
+          onChange={handleChangeValues} 
           />
         <input
           type="text"
@@ -42,6 +59,7 @@ function App() {
           <button className="register--button"
           onClick={()=> handleClickButton()}>Cadastrar</button>
       </div>
+      <Card></Card>
     </div>
   );
 }
