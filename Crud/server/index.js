@@ -27,9 +27,8 @@ app.post("/register", (req, res) => {
   let query = "INSERT INTO peixes (name,cost,category) VALUES (?,?,?);";
 
   db.query(query, [name, cost, category],(err, result) => {
-    err ? console.log(err) : console.log(result);
+    err ? console.log(err) : res.send(result);
   });
-
 });
 
 app.get("/getCards", (req, res) => {
@@ -41,26 +40,30 @@ app.get("/getCards", (req, res) => {
   });
 });
 
-// app.post("/register", (req, res) => {
-//   const { name } = req.body;
-//   const { cost } = req.body;
-//   const { category } = req.body;
+app.put("/edit", (req, res) => {
+  const { id } = req.body;
+  const { name } = req.body;
+  const { cost } = req.body;
+  const { category } = req.body;
 
-//   let query = "INSERT INTO peixes (name,cost,category) VALUES (?,?,?)";
+  let query = "UPDATE peixes SET name = ?, cost = ?, category = ? WHERE idpeixes = ?";
 
-//   db.query(query, [name, cost, category],(err, result) => {
-//     err ? console.log(err) : console.log(result);
-//   });
+  db.query(query, [name, cost, category, id], (err, result) => {
+    err ? console.log(err) : res.send(result);
+  });
+  console.log("Atualizado com sucesso!");
+});
 
-// });
+app.delete("/delete/:id", (req, res) => {
+  const { id } = req.params;
 
+  let query = "DELETE FROM peixes WHERE idpeixes = ?";
 
-
-
-// app.get("/", (req, res) => {
-// //   let query = "SELECT * FROM crudreact.peixes;";
-
-// });
+  db.query(query, [id], (err, result) => {
+    err ? console.log(err) : res.send(result);
+  });
+  console.log("Deletado com sucesso!");
+});
 
 app.listen(3001, () => {
   console.log("Rodando Server.");
